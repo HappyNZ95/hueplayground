@@ -1,6 +1,6 @@
 import requests
 import time
-from lights import hayden_lantern, hayden_hue_desk, hayden_under_bed, hayden_hue_bookshelf, hayden_bedside_lamp
+from lights import haydens_room
 
 
 def update_brightness(url, brightness):
@@ -19,35 +19,29 @@ def update_brightness(url, brightness):
     return response
 
 
-def main():
+def restore_scene_for_wake_up(
+    room,
+    ending_brightness,
+    brightness_increment,
+    duration_in_seconds,
+    time_increment_in_seconds,
+    brightness = 0
+):
+    seconds_passed = 0
 
-    starting_brightness = 0
-    ending_brightness = 100
-    brightness_increment = 10
-    duration_in_seconds = 60
-    time_increment_in_seconds = 3
-    seconds = 0
-    brightness = starting_brightness
-
-    update_brightness(hayden_lantern, brightness)
-    update_brightness(hayden_hue_desk, brightness)
-    update_brightness(hayden_under_bed, brightness)
-    update_brightness(hayden_hue_bookshelf, brightness)
-    update_brightness(hayden_bedside_lamp, brightness)
-    time.sleep(time_increment_in_seconds)
-    brightness += brightness_increment
-
-    while seconds < duration_in_seconds:
-        update_brightness(hayden_lantern, brightness)
-        update_brightness(hayden_hue_desk, brightness)
-        update_brightness(hayden_under_bed, brightness)
-        update_brightness(hayden_hue_bookshelf, brightness)
-        update_brightness(hayden_bedside_lamp, brightness)
+    while seconds_passed < duration_in_seconds:
+        for light in haydens_room:
+            update_brightness(light, brightness)
+        seconds_passed += time_increment_in_seconds
         print("Brightness:", brightness)
-        seconds += time_increment_in_seconds
-        print(f"{seconds} seconds out of {duration_in_seconds}")
+        print(f"{seconds_passed} seconds out of {duration_in_seconds}")
         time.sleep(time_increment_in_seconds)
         brightness += brightness_increment
+def main():
+    restore_scene_for_wake_up(haydens_room, 100, 5, 60, 2)
+
+
+
 
 if __name__ == "__main__":
     main()
