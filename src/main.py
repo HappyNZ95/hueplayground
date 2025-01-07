@@ -23,9 +23,9 @@ def main():
 
     starting_brightness = 0
     ending_brightness = 100
-    brightness_increment = 3
+    brightness_increment = 10
     duration_in_seconds = 60
-    sleep_time = 3
+    time_increment_in_seconds = 3
     seconds = 0
     brightness = starting_brightness
 
@@ -34,7 +34,7 @@ def main():
     update_brightness(hayden_under_bed, brightness)
     update_brightness(hayden_hue_bookshelf, brightness)
     update_brightness(hayden_bedside_lamp, brightness)
-    time.sleep(sleep_time)
+    time.sleep(time_increment_in_seconds)
     brightness += brightness_increment
 
     while seconds < duration_in_seconds:
@@ -44,9 +44,9 @@ def main():
         update_brightness(hayden_hue_bookshelf, brightness)
         update_brightness(hayden_bedside_lamp, brightness)
         print("Brightness:", brightness)
-        seconds += sleep_time
+        seconds += time_increment_in_seconds
         print(f"{seconds} seconds out of {duration_in_seconds}")
-        time.sleep(sleep_time)
+        time.sleep(time_increment_in_seconds)
         brightness += brightness_increment
 
 if __name__ == "__main__":
