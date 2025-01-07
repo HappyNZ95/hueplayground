@@ -1,7 +1,9 @@
 import requests
 import time
+from lights import hayden_lantern, hayden_hue_desk, hayden_under_bed, hayden_hue_bookshelf, hayden_bedside_lamp
 
-def updateBrightness(url, brightness):
+
+def update_brightness(url, brightness):
     data = {
     "on":{"on":True},
     "dimming":{"brightness":brightness}
@@ -16,24 +18,36 @@ def updateBrightness(url, brightness):
     print("Response Body:", response.text)
     return response
 
+
 def main():
 
-    brightness = 0
-    updateBrightness("https://192.168.1.247/clip/v2/resource/light/61a7c89c-8043-4dfc-9e35-a07aa256f690", brightness)
-    time.sleep(3)
-    brightness += 5
-    updateBrightness("https://192.168.1.247/clip/v2/resource/light/61a7c89c-8043-4dfc-9e35-a07aa256f690", brightness)
+    starting_brightness = 0
+    ending_brightness = 100
+    brightness_increment = 3
+    duration_in_seconds = 60
+    sleep_time = 3
+    seconds = 0
+    brightness = starting_brightness
 
-    time.sleep(3)
-    brightness += 5
-    updateBrightness("https://192.168.1.247/clip/v2/resource/light/61a7c89c-8043-4dfc-9e35-a07aa256f690", brightness)
+    update_brightness(hayden_lantern, brightness)
+    update_brightness(hayden_hue_desk, brightness)
+    update_brightness(hayden_under_bed, brightness)
+    update_brightness(hayden_hue_bookshelf, brightness)
+    update_brightness(hayden_bedside_lamp, brightness)
+    time.sleep(sleep_time)
+    brightness += brightness_increment
 
-    time.sleep(3)
-    brightness += 5
-    updateBrightness("https://192.168.1.247/clip/v2/resource/light/61a7c89c-8043-4dfc-9e35-a07aa256f690", brightness)
+    while seconds < duration_in_seconds:
+        update_brightness(hayden_lantern, brightness)
+        update_brightness(hayden_hue_desk, brightness)
+        update_brightness(hayden_under_bed, brightness)
+        update_brightness(hayden_hue_bookshelf, brightness)
+        update_brightness(hayden_bedside_lamp, brightness)
+        print("Brightness:", brightness)
+        seconds += sleep_time
+        print(f"{seconds} seconds out of {duration_in_seconds}")
+        time.sleep(sleep_time)
+        brightness += brightness_increment
 
-    time.sleep(3)
-    brightness += 5
-    updateBrightness("https://192.168.1.247/clip/v2/resource/light/61a7c89c-8043-4dfc-9e35-a07aa256f690", brightness)
 if __name__ == "__main__":
     main()
