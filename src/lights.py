@@ -5,3 +5,5 @@ hayden_bedside_lamp = "https://192.168.1.247/clip/v2/resource/light/3a198553-7e2
 hayden_under_bed = "https://192.168.1.247/clip/v2/resource/light/0aa2308a-2782-4398-8978-45eadbb28619"
 
 haydens_room = [hayden_hue_desk, hayden_hue_bookshelf,hayden_lantern,hayden_bedside_lamp,hayden_under_bed]
+
+"IfFAxmMRJ9KwlVA4o0WgK7es-1o2xPDuxhG85j1U"

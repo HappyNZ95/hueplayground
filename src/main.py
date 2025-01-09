@@ -1,6 +1,7 @@
 import requests
 import time
 from lights import haydens_room
+from scenes import miami
 import json
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
@@ -12,6 +13,8 @@ headers = {
     "hue-application-key": "IfFAxmMRJ9KwlVA4o0WgK7es-1o2xPDuxhG85j1U",
     "Content-Type": "application/json"
     }
+
+
 
 def update_brightness(url, brightness):
 
@@ -51,13 +54,16 @@ def restore_scene_for_wake_up(
 
     while seconds_passed < duration_in_seconds:
 
+
             if brightness < ending_brightness:
                 response = requests.get("https://192.168.1.247/clip/v2/resource/light/61a7c89c-8043-4dfc-9e35-a07aa256f690", headers=headers, verify=False)
                 light_on = json.loads(response.text)["data"][0]["on"]["on"] #are lights on boolean
+                print("light on:", light_on)
                 if not light_on:
                     exit()
 
                 print(f"{seconds_passed} seconds out of {duration_in_seconds}")
+
                 for light in haydens_room:
                     update_brightness(light, brightness)
                     print("Brightness:", brightness)
@@ -71,8 +77,44 @@ def restore_scene_for_wake_up(
                     update_brightness(light, ending_brightness)
                     exit()
 
+
+def change_colour(url):
+    data = {
+        "color": {
+                        "xy": {
+                            "x": 0.5058,
+                            "y": 0.4151
+                        },
+                        "gamut": {
+                            "red": {
+                                "x": 0.6915,
+                                "y": 0.3083
+                            },
+                            "green": {
+                                "x": 0.17,
+                                "y": 0.7
+                            },
+                            "blue": {
+                                "x": 0.1532,
+                                "y": 0.0475
+                            }
+                        },
+                        "gamut_type": "C"
+                    }
+    }
+    response = requests.put(url, json=data, headers=headers, verify=False)
+    print(response.status_code)
+    print(response.text)
+    return response
+
+#def change_scene(room, scene):
+#    data = "placeholder"
+#    for light in room:
+#        response = requests.put(f"https://192.168.1.247/clip/v2/resource/{light}", json=data, headers=headers, verify=False)
+
 def main():
-    restore_scene_for_wake_up(haydens_room, 50, 2, 1800, 60)
+    #restore_scene_for_wake_up(haydens_room, 50, 2, 1800, 60)
+    change_colour(haydens_room[1])
 
 
 
