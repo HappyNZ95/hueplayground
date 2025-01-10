@@ -79,29 +79,8 @@ def restore_scene_for_wake_up(
 
 
 def change_colour(url):
-    data = {
-        "color": {
-                        "xy": {
-                            "x": 0.5058,
-                            "y": 0.4151
-                        },
-                        "gamut": {
-                            "red": {
-                                "x": 0.6915,
-                                "y": 0.3083
-                            },
-                            "green": {
-                                "x": 0.17,
-                                "y": 0.7
-                            },
-                            "blue": {
-                                "x": 0.1532,
-                                "y": 0.0475
-                            }
-                        },
-                        "gamut_type": "C"
-                    }
-    }
+    data = {"color": miami[0]}
+
     response = requests.put(url, json=data, headers=headers, verify=False)
     print(response.status_code)
     print(response.text)
@@ -114,7 +93,7 @@ def change_colour(url):
 
 def main():
     #restore_scene_for_wake_up(haydens_room, 50, 2, 1800, 60)
-    change_colour(haydens_room[1])
+    change_colour(haydens_room[0])
 
 
 
