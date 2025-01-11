@@ -11,6 +11,22 @@ from lights import haydens_room
 from scenes.ibiza import ibiza_colours
 
 
+def is_int(value):
+    try:
+        return int(value), True
+    except ValueError:
+        return value, False
+
+
+parser = argparse.ArgumentParser(description="A controller for Phillips hue")
+
+parser.add_argument("input", help="Enter a scene or a brightness value i.e. ibiza or 57")
+args=parser.parse_args()
+
+value, is_number = is_int(args.input)
+
+
+
 
 def main():
     #change_colour(haydens_room[0],ibiza_colours[0])
