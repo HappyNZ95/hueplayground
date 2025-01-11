@@ -80,18 +80,18 @@ def restore_scene_for_wake_up(
 
 def change_colour(url, colour_json):
     data = {"color": colour_json}
-
     response = requests.put(url, json=data, headers=headers, verify=False)
     print(response.status_code)
     print(response.text)
     return response
 
-def change_scene(room, scene):
-    pass
-def main():
-    #restore_scene_for_wake_up(haydens_room, 50, 2, 1800, 60)
-    change_colour(haydens_room[0], ibiza_colours[0])
+def change_scene(room, colour_list):
+    for light, colour in zip(room, colour_list):
+        change_colour(light, colour)
 
+def main():
+    #change_colour(haydens_room[0],ibiza_colours[0])
+    change_scene(haydens_room, ibiza_colours)
 
 
 
