@@ -1,7 +1,7 @@
 import requests
 import time
 from lights import haydens_room
-from scenes import miami
+from scenes.ibiza import ibiza_colours
 import json
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
@@ -78,22 +78,19 @@ def restore_scene_for_wake_up(
                     exit()
 
 
-def change_colour(url):
-    data = {"color": miami[0]}
+def change_colour(url, colour_json):
+    data = {"color": colour_json}
 
     response = requests.put(url, json=data, headers=headers, verify=False)
     print(response.status_code)
     print(response.text)
     return response
 
-#def change_scene(room, scene):
-#    data = "placeholder"
-#    for light in room:
-#        response = requests.put(f"https://192.168.1.247/clip/v2/resource/{light}", json=data, headers=headers, verify=False)
-
+def change_scene(room, scene):
+    pass
 def main():
     #restore_scene_for_wake_up(haydens_room, 50, 2, 1800, 60)
-    change_colour(haydens_room[0])
+    change_colour(haydens_room[0], ibiza_colours[0])
 
 
 
