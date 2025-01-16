@@ -25,9 +25,10 @@ def update_colour(url, colour_json):
     print(response.text)
     return response
 
-def update_scene(room, colour_list):
+def update_scene(room, colour_list, brightness=80):
     for light, colour in zip(room, colour_list):
         update_colour(light, colour)
+        update_scene_brightness(room, brightness)
 
 def update_scene_brightness(room, brightness):
     for light in room:

@@ -9,18 +9,13 @@ from controllers import update_brightness, update_colour, update_scene, update_s
 
 from lights import haydens_room
 from scenes.ibiza import ibiza_colours
-from scenes.scene import ibiza
-from scenes.scene import scenes
+from scenes.scenes import scenes
 
 def is_int(value):
     try:
         return int(value), True
     except ValueError:
         return value, False
-
-
-
-
 
 
 def main():
@@ -35,8 +30,7 @@ def main():
     if not is_int(args.input)[1]:
         for scene in scenes:
             if args.input == scene.name:
-                new_scene = scene.colours
-                update_scene(haydens_room, new_scene)
+                update_scene(haydens_room, scene.colours, scene.brightness)
 
     if is_int(args.input)[1]:
         update_scene_brightness(haydens_room, int(args.input))
