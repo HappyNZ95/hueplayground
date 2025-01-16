@@ -8,7 +8,6 @@ from controllers import headers
 from controllers import update_brightness, update_colour, update_scene, update_scene_brightness, restore_scene_for_wake_up
 
 from lights import haydens_room
-from scenes.ibiza import ibiza_colours
 from scenes.scenes import scenes
 
 def is_int(value):
@@ -23,21 +22,24 @@ def main():
     parser = argparse.ArgumentParser(description="A controller for Phillips hue")
 
     parser.add_argument("input", help="Enter a scene or a brightness value i.e. ibiza or 57")
+    parser.add_argument("brightness", type=int, nargs="?")
     args=parser.parse_args()
 
     print(args.input)
+    print(args.brightness)
 
     if not is_int(args.input)[1]:
         for scene in scenes:
             if args.input == scene.name:
-                return update_scene(haydens_room, scene.colours, scene.brightness)
+                brightness = scene.brightness
+                if not args.brightness == None:
+                    brightness = args.brightness
+                update_scene(haydens_room, scene.colours, brightness)
 
     if is_int(args.input)[1]:
         update_scene_brightness(haydens_room, int(args.input))
 
-    #change_colour(haydens_room[0],ibiza_colours[0])
-    #update_scene(haydens_room, ibiza_colours)
-
+    update_scene_brightness(haydens_room, args.brightness)
 
 
 if __name__ == "__main__":
