@@ -30,7 +30,7 @@ def main():
     if not is_int(args.input)[1]:
         for scene in scenes:
             if args.input == scene.name:
-                update_scene(haydens_room, scene.colours, scene.brightness)
+                return update_scene(haydens_room, scene.colours, scene.brightness)
 
     if is_int(args.input)[1]:
         update_scene_brightness(haydens_room, int(args.input))

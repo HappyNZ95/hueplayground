@@ -1,4 +1,4 @@
-ibiza_default_brightness = 49
+from model.scene import Scene
 ibiza_colours = [
 
     {
@@ -36,3 +36,7 @@ ibiza_colours = [
         }
     },
 ]
+
+default_brightness = 49
+
+ibiza = Scene("ibiza", ibiza_colours, default_brightness)

@@ -21,14 +21,14 @@ def update_brightness(url, brightness):
 def update_colour(url, colour_json):
     data = {"color": colour_json}
     response = requests.put(url, json=data, headers=headers, verify=False)
-    print(response.status_code)
-    print(response.text)
     return response
 
 def update_scene(room, colour_list, brightness=80):
+    print("Changing scene..")
     for light, colour in zip(room, colour_list):
         update_colour(light, colour)
         update_scene_brightness(room, brightness)
+    print("Done!")
 
 def update_scene_brightness(room, brightness):
     for light in room:

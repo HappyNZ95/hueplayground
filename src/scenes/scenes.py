@@ -1,14 +1,7 @@
-from scenes.ibiza import ibiza_colours
+from scenes.ibiza import ibiza
+from scenes.nebula import nebula
 
-class Scene:
-    def __init__(self, name, colours, brightness):
-        self.name = name
-        self.colours = colours
-        self.brightness = brightness
 
-    def print(self):
-        print(self.name, self.colours, self.brightness)
 
-ibiza = Scene("ibiza", ibiza_colours, 49)
 
-scenes = [ibiza]
+scenes = [ibiza, nebula]
